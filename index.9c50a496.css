@@ -1,0 +1,2 @@
+.gallery{flex-wrap:wrap;gap:5px;display:flex}.photo-card{flex-basis:calc(20% - 1px)}.photo-card img{width:300px;height:200px}.info{justify-content:space-between;gap:2px;display:flex}.info p{flex-basis:calc(25% - .5px)}.info b{flex-direction:column;align-items:center;display:flex}
+/*# sourceMappingURL=index.9c50a496.css.map */
