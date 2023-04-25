@@ -11,6 +11,15 @@ let currentHits = null;
 export default async function getImgs(searchValue, page) {
   const API_KEY = '35664571-75b29dbb0058a8cd226bd52d4';
   const URL = 'https://pixabay.com/api/';
+  const infiniteScroll = new IntersectionObserver(
+    ([entry], observer) => {
+      if (entry.isIntersecting) {
+        observer.unobserve(entry.target);
+        getImgs(searchValue, (page += 1));
+      }
+    },
+    { threshold: 0.8 }
+  );
 
   try {
     const response = await axios.get(
@@ -27,7 +36,7 @@ export default async function getImgs(searchValue, page) {
       currentHits = null;
     }
 
-    loadBtn.classList.add('visible');
+    // loadBtn.classList.add('visible');
 
     currentHits += data.hits.length;
     console.log(currentHits);
@@ -42,12 +51,19 @@ export default async function getImgs(searchValue, page) {
 
     if (currentHits >= data.totalHits) {
       currentHits = null;
-      page = 1;
-      loadBtn.classList.remove('visible');
+      // page = 1;
+      // loadBtn.classList.remove('visible');
       Notify.info("We're sorry, but you've reached the end of search results.");
+      return;
+    }
+
+    const lastCard = document.querySelector('.photo-card:last-child');
+
+    if (lastCard) {
+      infiniteScroll.observe(lastCard);
     }
   } catch (error) {
-    loadBtn.classList.remove('visible');
+    // loadBtn.classList.remove('visible');
     console.log(error);
     gallery.innerHTML = '';
     Notify.failure(

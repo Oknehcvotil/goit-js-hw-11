@@ -8,7 +8,7 @@ let searchValue = '';
 let page = null;
 
 form.addEventListener('submit', onSubmit);
-loadBtn.addEventListener('click', onLoad);
+// loadBtn.addEventListener('click', onLoad);
 
 function onSubmit(e) {
   e.preventDefault();
@@ -18,17 +18,17 @@ function onSubmit(e) {
   page = 1;
 
   if (!searchValue) {
-    loadBtn.classList.remove('visible');
+    // loadBtn.classList.remove('visible');
     return;
   }
 
   getImgs(searchValue, page);
 }
 
-function onLoad(e) {
-  page += 1;
+// function onLoad(e) {
+//   page += 1;
 
-  loadBtn.classList.remove('visible');
+//   loadBtn.classList.remove('visible');
 
-  getImgs(searchValue, page);
-}
+//   getImgs(searchValue, page);
+// }
